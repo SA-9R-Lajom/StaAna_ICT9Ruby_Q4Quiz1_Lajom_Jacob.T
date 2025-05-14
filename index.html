@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Score Analyzer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 50px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #1f1f1f;
+    }
+    input {
+      margin: 5px 0;
+      padding: 8px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-top: 10px;
+      background-color: #4CAF50;
+      color: ghostwhite;
+      border: none;
+      cursor: pointer;
+    }
+    #result {
+      margin-top: 22px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Score Analyzer</h2>
+
+  <label>Filipino:</label><br>
+  <input type="number" id="filipino"><br>
+
+  <label>English:</label><br>
+  <input type="number" id="english"><br>
+
+  <label>Science:</label><br>
+  <input type="number" id="science"><br>
+
+  <label>Math:</label><br>
+  <input type="number" id="math"><br>
+
+  <label>Social Studies:</label><br>
+  <input type="number" id="socials"><br>
+
+  <button onclick="analyzeScores()">Analyze</button>
+
+  <div id="result"></div>
+
+  <script>
+    function analyzeScores() {
+      const filipino = parseFloat(document.getElementById('filipino').value);
+      const english = parseFloat(document.getElementById('english').value);
+      const science = parseFloat(document.getElementById('science').value);
+      const math = parseFloat(document.getElementById('math').value);
+      const socials = parseFloat(document.getElementById('socials').value);
+
+      if (isNaN(filipino) || isNaN(english) || isNaN(science) || isNaN(math) || isNaN(socials)) {
+        document.getElementById('result').innerText = "Please enter all grades correctly.";
+        return;
+      }
+
+      const average = (filipino + english + science + math + socials) / 5;
+      const gradeBracket = Math.floor(average / 10); // e.g. 87 -> 8
+
+      let rating = "";
+
+      switch (gradeBracket) {
+        case 10:
+        case 9:
+          rating = "Excellent";
+          break;
+        case 8:
+          rating = "Very Good";
+          break;
+        case 7:
+          rating = "Good";
+          break;
+        case 6:
+          rating = "Needs Improvement";
+          break;
+        default:
+          rating = "Poor";
+      }
+
+      document.getElementById('result').innerText =
+        `Average Grade: ${average.toFixed(2)}\nRating: ${rating}`;
+    }
+  </script>
+</body>
+</html>
